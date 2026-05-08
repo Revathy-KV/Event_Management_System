@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Feedback</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html">🏠 Home</a>
+    <a href="events.html">📅 Events</a>
+    <a href="feedback.html">💬 Feedback</a>
+  </nav>
+
+  <div class="container">
+    <h1>💬 Submit Your Feedback</h1>
+    <br>
+
+    <!-- Success Message -->
+    <div id="successMsg" class="success" style="display:none;">
+      ✅ Feedback submitted successfully!
+    </div>
+
+    <!-- Error Message -->
+    <div id="errorMsg" class="error" style="display:none;">
+      ❌ Please fill in all fields!
+    </div>
+
+    <!-- Form -->
+    <div class="form-container">
+      <label>Your Name:</label>
+      <input type="text" id="name" 
+             placeholder="Enter your name">
+
+      <label>Event Name:</label>
+      <input type="text" id="event" 
+             placeholder="Enter event name">
+
+      <label>Your Feedback:</label>
+      <textarea id="message" 
+                placeholder="Write your feedback here...">
+      </textarea>
+
+      <button onclick="submitFeedback()">
+        Submit Feedback
+      </button>
+    </div>
+
+    <!-- All Feedbacks Section -->
+    <h2 style="margin-top:40px;">📋 All Submitted Feedbacks</h2>
+    <div id="feedbackList">
+      <p>Loading feedbacks...</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Event Feedback System | 
+       Built for Sysslan IT Solutions Internship</p>
+  </footer>
+
+  <script>
+    // Validation + Submit
+    function submitFeedback() {
+      const name = document.getElementById('name').value.trim();
+      const event = document.getElementById('event').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      // Task 4: Validation
+      if (name === '' || event === '' || message === '') {
+        document.getElementById('errorMsg').style.display = 'block';
+        document.getElementById('successMsg').style.display = 'none';
+        return;
+      }
+
+      document.getElementById('errorMsg').style.display = 'none';
+
+      // Task 1: Fetch API
+      fetch('http://localhost:3000/feedback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, event, message })
+      })
+      .then(res => res.json())
+      .then(data => {
+        // Task 2: Success message
+        document.getElementById('successMsg').style.display = 'block';
+
+        // Clear form
+        document.getElementById('name').value = '';
+        document.getElementById('event').value = '';
+        document.getElementById('message').value = '';
+
+        // Task 3: Reload feedbacks
+        loadFeedbacks();
+      })
+      .catch(err => console.error('Error:', err));
+    }
+
+    // Task 3: Load all feedbacks
+    function loadFeedbacks() {
+      fetch('http://localhost:3000/all-feedback')
+        .then(res => res.json())
+        .then(data => {
+          const list = document.getElementById('feedbackList');
+
+          if (data.length === 0) {
+            list.innerHTML = '<p>No feedbacks yet.</p>';
+            return;
+          }
+
+          list.innerHTML = '';
+          data.forEach(fb => {
+            list.innerHTML += `
+              <div class="feedback-card">
+                <p><b>👤 Name:</b> ${fb.name}</p>
+                <p><b>📅 Event:</b> ${fb.event}</p>
+                <p><b>💬 Feedback:</b> ${fb.message}</p>
+              </div>
+            `;
+          });
+        });
+    }
+
+    // Load feedbacks on page open
+    loadFeedbacks();
+  </script>
+
+</body>
+</html>
