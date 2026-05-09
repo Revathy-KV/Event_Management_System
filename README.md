@@ -10,18 +10,17 @@ A full-stack web application built during my internship at **Sysslan IT Solution
 
 ## 📸 Screenshots
 
-### Homepage
+ Homepage
 
-### Events Page
+ Events Page
 
-### Feedback Form
+ Feedback Form
 
+ Success Message
 
-### Success Message
+ All Feedbacks
 
-### All Feedbacks
-
-screenshots provided in screenshots folder.
+>screenshots provided in screenshots folder.
 
 ---
 
