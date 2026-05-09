@@ -11,7 +11,7 @@ A full-stack web application built during my internship at **Sysslan IT Solution
 ## 📸 Screenshots
 
 ### Homepage
-screenshots/homepage.png.jpeg
+!(screenshots/homepage.png.jpeg)
 
 ### Events Page
 ![Events](screenshots/02_events_page.png)
