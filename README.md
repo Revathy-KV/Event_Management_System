@@ -1,7 +1,4 @@
 # Event Feedback Management System
-A full-stack web app to collect and manage event feedback built during Sysslan IT Solutions internship
-
-# Event Feedback Management System
 A full-stack web application built during my internship at **Sysslan IT Solutions** that allows users to submit and view feedback for events.
 
 ---
